@@ -2,19 +2,30 @@ package com.neuedu.main;
 
 import com.neuedu.constant.FrameConstant;
 import com.neuedu.runtime.Background;
+import com.neuedu.runtime.Bullet;
+import com.neuedu.runtime.Plane;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class GameFrame extends Frame {
-
+    //创建背景的对象
     private Background background = new Background();
+    //创建飞机的对象
+    private Plane plane = new Plane();
 
+    //
+    private List<Bullet> bulletList = new ArrayList<>();
     @Override
     public void paint(Graphics g) {
         background.draw(g);
+        plane.draw(g);
     }
 
 
@@ -38,6 +49,19 @@ public class GameFrame extends Frame {
                 System.exit(0);
             }
         });
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                plane.keyPressed(e);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                plane.keyReleased(e);
+            }
+        });
+
 
         new Thread(){
             @Override
